@@ -1,12 +1,12 @@
 <?php
-require_once("IntlDateFormatterHelper.php");
-require_once("Locales.php");
 
-/**
- * The first challenge is to convert the date written in German into English.
- * The date in German is 'So., 01.01.2023',
- * and convert it to English 'Sunday 1st of January 2023'
- */
+use helpers\IntlDateFormatterHelper;
+use interfaces\Locales;
+
+require_once("./src/helpers/IntlDateFormatterHelper.php");
+require_once("./src/interfaces/Locales.php");
+
+
 $date = 'So., 01.01.2023';
 $locale = Locales::DE_LOCALE;
 
@@ -17,7 +17,7 @@ $outputDateFormat = 'l jS \of F Y';
 
 $intlDateFormat = new IntlDateFormatterHelper($locale);
 $enDate = $intlDateFormat->formatStrToStr($date, $inputDateFormat, $outputDateFormat);
-echo 'From '. $date .' to '. $enDate . "<br />";
+echo 'From ' . $date . ' to ' . $enDate . "<br />";
 
 
 /**
@@ -32,7 +32,4 @@ $outputDateFormat = 'l jS \of F Y h:i:s A';
 
 $intlDateFormat = new IntlDateFormatterHelper($locale);
 $enDate = $intlDateFormat->formatStrToStr($date, $inputDateFormat, $outputDateFormat);
-echo 'From '. $date .' to '. $enDate . "<br />";
-
-
-
+echo 'From ' . $date . ' to ' . $enDate . "<br />";
