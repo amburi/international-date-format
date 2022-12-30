@@ -1,29 +1,38 @@
 <?php
 require_once("IntlDateFormatterHelper.php");
+require_once("Locales.php");
 
 /**
- * First challenge is to convert German date into English format
- * The given German date is 'So., 01.01.2023' which means Sunday, 01 January 2023
- * Here we have to convert given German date into English 'Sunday 1st of January 2023' format
- * Here $fromFormat have used unicode date field symbols
- * refer: https://www.unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table
+ * The first challenge is to convert the date written in German into English.
+ * The date in German is 'So., 01.01.2023',
+ * and convert it to English 'Sunday 1st of January 2023'
  */
 $date = 'So., 01.01.2023';
-$intlDateFormat = new IntlDateFormatterHelper("de_DE");
-$enDate = $intlDateFormat->parseDate($date, 'EEEEEE., d.m.y', 'l jS \of F Y');
-echo $enDate . "<br />";
+$locale = Locales::DE_LOCALE;
+
+// Here $fromFormat have used unicode date field symbols
+// refer: https://www.unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table
+$inputDateFormat = 'EEEEEE., d.m.y';
+$outputDateFormat = 'l jS \of F Y';
+
+$intlDateFormat = new IntlDateFormatterHelper($locale);
+$enDate = $intlDateFormat->formatStrToStr($date, $inputDateFormat, $outputDateFormat);
+echo 'From '. $date .' to '. $enDate . "<br />";
+
 
 /**
- * Second challenge is to convert French date into English format
- * The given French date is 'Lundi, 08 Juillet 2013 09:09' which means Monday, 08 July 2013 09:09
- * Here we have to convert given German date into English 'Monday 8th of July 2013 09:09:00 AM' format
- * Here $fromFormat I have used unicode date field symbols
- * refer: https://www.unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table
+ * Here, convert the date from French into English.
+ * The date in French is 'Lundi, 08 Juillet 2013 09:09',
+ * and convert it to English 'Monday 8th of July 2013 09:09:00 AM'.
  */
 $date = 'Lundi, 08 Juillet 2013 09:09';
-$intlDateFormat = new IntlDateFormatterHelper("fr_FR");
-$enDate = $intlDateFormat->parseDate($date, 'EEEE, dd MMMM y hh:mm', 'l jS \of F Y h:i:s A');
-echo $enDate . "<br />";
+$locale = Locales::FR_LOCALE;
+$inputDateFormat = 'EEEE, dd MMMM y hh:mm';
+$outputDateFormat = 'l jS \of F Y h:i:s A';
+
+$intlDateFormat = new IntlDateFormatterHelper($locale);
+$enDate = $intlDateFormat->formatStrToStr($date, $inputDateFormat, $outputDateFormat);
+echo 'From '. $date .' to '. $enDate . "<br />";
 
 
 
